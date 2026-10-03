@@ -1,0 +1,21 @@
+<!doctype html>
+<!--
+  X header: the word itself is compressed. The same word at the typeface's widest, normal and narrowest widths,
+  which is what the site's headline does as it loads.
+-->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css"><link rel="stylesheet" href="x-header.css">
+<style>
+  .stack { position: absolute; left: 330px; top: 50%; transform: translateY(-50%); font-size: 84px; font-weight: 600; letter-spacing: -0.02em; line-height: 0.98; white-space: nowrap; }
+  .stack p:nth-child(1) { font-stretch: 125%; color: var(--fg-disabled); }
+  .stack p:nth-child(2) { font-stretch: 96%; color: var(--fg-tertiary); }
+  .stack p:nth-child(3) { font-stretch: 62%; }
+  .lockup { position: absolute; right: 120px; top: 50%; transform: translateY(-50%); }
+</style></head>
+<body>
+  <div class="stack">
+    <p>Compression</p>
+    <p>Compression</p>
+    <p>Compression made easy.</p>
+  </div>
+  <div class="lockup small"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#3563e9"/><path d="M9 15V9h6M23 17v6h-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>justresize.com</span></div>
+</body></html>

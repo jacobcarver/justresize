@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- X header: a pattern of quarter-circle tiles (sample.svg) fills the right-hand side. The pattern is used only here; the site's example pictures are photographs. -->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css"><link rel="stylesheet" href="x-header.css">
+<style>
+  .copy { position: absolute; left: 330px; top: 50%; transform: translateY(-50%); }
+  .line { margin-top: 26px; font-size: 40px; line-height: 1.25; color: var(--fg-secondary); }
+  .tiles { position: absolute; right: 0; top: 0; width: 667px; height: 500px; }
+  .tiles img { display: block; width: 100%; height: 100%; object-fit: cover; }
+</style></head>
+<body>
+  <div class="copy">
+    <div class="lockup"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#3563e9"/><path d="M9 15V9h6M23 17v6h-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>justresize.com</span></div>
+    <p class="line">Compress, resize, convert.<br>In your browser.</p>
+  </div>
+  <div class="tiles"><img src="sample.svg" alt=""></div>
+</body></html>

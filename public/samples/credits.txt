@@ -1,0 +1,10 @@
+The example photographs on justresize.com are from Unsplash (unsplash.com),
+which licenses its photos for free use, including commercial use, without
+permission or attribution. They are credited here anyway.
+
+mountains.webp  Go Wild          https://unsplash.com/photos/V0yAek6BgGk
+water.webp      Anton Sulsky     https://unsplash.com/photos/fj0tFloTPGQ
+dune.webp       Tim de Groot     https://unsplash.com/photos/yNGQ830uFB4
+blossom.webp    Rula Sibai       https://unsplash.com/photos/-vq7mi4oF0s
+
+Each was cropped to 4:3 and resized; the "-thumb" files are square crops.

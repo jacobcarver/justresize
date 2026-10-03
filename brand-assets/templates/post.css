@@ -1,0 +1,7 @@
+/* Layout shared by the 1600 × 900 post templates: name top-left, one statement, one figure, the address bottom-left. */
+:root { --w: 1600px; --h: 900px; }
+.wordmark { position: absolute; left: 96px; top: 88px; font-size: 40px; }
+.headline { position: absolute; left: 96px; top: 250px; width: 700px; font-size: 88px; }
+.sub { position: absolute; left: 96px; top: 560px; width: 640px; font-size: 32px; line-height: 1.4; color: var(--fg-secondary); }
+.foot { position: absolute; left: 96px; bottom: 84px; font-size: 28px; color: var(--fg-tertiary); }
+.figure { position: absolute; right: 120px; top: 50%; transform: translateY(-50%); }

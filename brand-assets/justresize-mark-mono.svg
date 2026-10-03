@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="JustResize">
+  <!-- One-colour version for places the cobalt tile cannot be used. It takes the colour of the text around it. -->
+  <path d="M5 16V5h11M27 16v11H16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,512 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Components use the semantic names below (bg-surface-1,
+ * text-fg-secondary, border-line, …) and never raw palette values, so a
+ * restyle — or a light theme — is a matter of redefining this block.
+ */
+:root {
+  /* Surfaces: one deep neutral, then three steps up. */
+  --background: #0e0f11;
+  --surface-1: #15161a;
+  --surface-2: #1d1e23;
+  --surface-3: #282a30;
+  --surface-hover: rgb(255 255 255 / 0.05);
+  /* The well an image sits in: a step below the page, so the picture is the brightest thing in it. */
+  --canvas: #0a0a0c;
+
+  --border-subtle: rgb(255 255 255 / 0.07);
+  --border-default: rgb(255 255 255 / 0.12);
+  --border-strong: rgb(255 255 255 / 0.22);
+
+  --text-primary: #ececef;
+  --text-secondary: #a6a7b1;
+  --text-tertiary: #8a8b96;
+  --text-disabled: #54555e;
+
+  /* One accent. --accent fills; --accent-text is the same hue, legible as text on a surface. */
+  --accent: #3563e9;
+  --accent-hover: #3f6cee;
+  --accent-subtle: rgb(70 115 242 / 0.14);
+  --accent-text: #8aa6ff;
+  --accent-foreground: #ffffff;
+
+  --success: #4cc38a;
+  --warning: #e0a63d;
+  --warning-subtle: rgb(224 166 61 / 0.12);
+  --danger: #f47670;
+  --danger-subtle: rgb(244 118 112 / 0.12);
+
+  --checker-light: #3a3b42;
+  --checker-dark: #303137;
+
+  /* Shape and density. Controls are compact with a mouse and finger-sized on touch. */
+  --radius-control: 6px;
+  --radius-panel: 10px;
+  --control-h: 2rem;
+  --control-text: 0.8125rem;
+  --header-h: 3rem;
+  --inspector-w: 22.5rem;
+
+  /* Width of the display type: Archivo's width axis, well towards condensed. Headlines are compressed, like the files. */
+  --display-stretch: 78%;
+  /* Easing. Resize: the demo frame changing size. Settle: things arriving. Glide: a slow change that starts gently and takes its time to stop. */
+  --ease-resize: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-settle: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-glide: cubic-bezier(0.45, 0, 0.15, 1);
+
+  /*
+   * Room the page leaves for the docked parts of the workspace. Both are
+   * zero until those parts exist (see the :has() rules below), so the empty
+   * workspace and the pages around it use the full width.
+   */
+  --inspector-space: 0px;
+  --dock-space: 0px;
+}
+
+/* Wide screens: the inspector is docked to the right edge, so content stops short of it. */
+@media (width >= 64rem) {
+  :root:has(.inspector-dock) {
+    --inspector-space: var(--inspector-w);
+  }
+}
+
+/* Narrow screens: the action bar is fixed to the bottom edge, so the page ends above it. */
+@media (width < 64rem) {
+  :root:has(.action-dock) {
+    --dock-space: 10.5rem;
+  }
+}
+
+@media (pointer: coarse), (width < 48rem) {
+  :root {
+    --control-h: 2.75rem;
+    /* 16px keeps iOS from zooming the page when a field is focused. */
+    --control-text: 1rem;
+  }
+}
+
+@custom-variant touch {
+  @media (pointer: coarse), (width < 48rem) {
+    @slot;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-hover: var(--surface-hover);
+  --color-canvas: var(--canvas);
+
+  --color-line-subtle: var(--border-subtle);
+  --color-line: var(--border-default);
+  --color-line-strong: var(--border-strong);
+
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-tertiary: var(--text-tertiary);
+  --color-fg-disabled: var(--text-disabled);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-text: var(--accent-text);
+  --color-accent-fg: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-danger: var(--danger);
+  --color-danger-subtle: var(--danger-subtle);
+
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Not a monospace face: `font-mono` is the class measurements already carry, and it now means "the same family, tabular figures". */
+  --font-mono: var(--font-sans-face), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-ui: 0.8125rem;
+  --text-ui--line-height: 1.25rem;
+
+  --radius-control: var(--radius-control);
+  --radius-panel: var(--radius-panel);
+}
+
+/*
+ * Paper: the one inverted band on the homepage. It is the same token set
+ * redefined for a light ground, so everything inside keeps using the
+ * semantic classes. The ground is the sand of the sample image.
+ */
+.paper {
+  --background: #e9e4d7;
+  --surface-1: #e1dccd;
+  --surface-2: #d8d2c1;
+  --surface-3: #cdc6b3;
+  --surface-hover: rgb(20 21 26 / 0.06);
+
+  --border-subtle: rgb(20 21 26 / 0.1);
+  --border-default: rgb(20 21 26 / 0.2);
+  --border-strong: rgb(20 21 26 / 0.42);
+
+  --text-primary: #14151a;
+  --text-secondary: #45464f;
+  --text-tertiary: #5d5e68;
+  --text-disabled: #9a978c;
+
+  --accent-text: #2447c4;
+  --success: #1f7a50;
+
+  background: var(--background);
+  color: var(--text-primary);
+  color-scheme: light;
+}
+
+html {
+  color-scheme: dark;
+  /* In-page links (/#how-it-works) land below the top of the window, not flush against it. */
+  scroll-padding-top: 1.5rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+
+::selection {
+  background: rgb(70 115 242 / 0.4);
+}
+
+/* One consistent, clearly visible focus ring for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* Text fields and selects: the ring replaces the border instead of floating around it. */
+.field:focus-visible {
+  outline-offset: -1px;
+}
+
+/*
+ * Measurements (dimensions, file sizes, counts, addresses) are set in the
+ * same family as everything else, with tabular figures so numbers line up
+ * and do not shift as they change. There is no monospace face on the site.
+ */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display type: the homepage's big lines and every page's title. */
+.type-display {
+  font-stretch: var(--display-stretch);
+}
+
+/* Shows through transparent areas of previews and thumbnails. */
+.checkerboard {
+  background: repeating-conic-gradient(var(--checker-dark) 0% 25%, var(--checker-light) 0% 50%) 0 0 / 12px 12px;
+}
+
+/*
+ * The canvas keeps one height whatever image is open, so switching images or
+ * settings never moves the page. On wide screens it takes what the window
+ * can spare; the file list starts right below it.
+ */
+.stage {
+  height: clamp(15rem, 44dvh, 23rem);
+}
+
+@media (width >= 64rem) {
+  .stage {
+    height: clamp(17.5rem, calc(100dvh - 21.5rem), 42rem);
+  }
+}
+
+/* The empty workspace: tall enough to be an obvious target, short enough that what is below it shows. */
+.empty-stage {
+  height: clamp(15rem, 46dvh, 24rem);
+}
+
+/*
+ * A tool page's own text lines up with whatever is above it: centred under
+ * the empty drop area, flush left once the workspace is open.
+ */
+.tool-page {
+  margin-inline: auto;
+}
+
+:root:has(.inspector-dock) .tool-page {
+  margin-inline: 0;
+}
+
+/* Long lists: let the browser skip layout and paint for rows that are off screen. */
+.asset-row {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 57px;
+}
+
+/* Row actions that only matter on intent stay out of the way until the row is hovered or focused. */
+@media (hover: hover) and (pointer: fine) {
+  .asset-row .row-reveal {
+    opacity: 0;
+  }
+
+  .asset-row:hover .row-reveal,
+  .asset-row:focus-within .row-reveal {
+    opacity: 1;
+  }
+}
+
+/* The hero's picture frame changes size between presets; its numbers are tweened to match (ResizeDemo.tsx). */
+.demo-frame {
+  transition:
+    width 0.9s var(--ease-resize),
+    height 0.9s var(--ease-resize);
+}
+
+/* Each output size shows a different photograph; they cross-fade while the frame changes. */
+.demo-photo {
+  transition: opacity 0.9s var(--ease-resize);
+}
+
+/*
+ * Motion on the public site. Three kinds, and nothing else moves:
+ *
+ * - The hero arrives once, in order: each part fades in and rises a little,
+ *   the headline first.
+ * - A figure plays once when it scrolls into view (components/site/Reveal.tsx
+ *   sets data-inview): the bar shrinks slowly to its file size while the
+ *   number counts down with it, and the batch rows complete in turn.
+ * - Two things are live and loop slowly: the path an image takes through
+ *   the browser, and the marker on current token data.
+ *
+ * /app has none of it. Reduced motion (the block at the end of this file)
+ * collapses every one of these to its finished state.
+ */
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(var(--settle-from, 0.5rem));
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+}
+
+/* The bar is the original's full length until it is scaled down to the result (its real scale is set inline). */
+@keyframes shrink-to-size {
+  from {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+  8% {
+    opacity: 1;
+  }
+}
+
+@keyframes chart-wipe {
+  from {
+    clip-path: inset(-25% 100% -25% 0);
+  }
+  to {
+    clip-path: inset(-25% -5% -25% 0);
+  }
+}
+
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  to {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+@keyframes flow-sweep {
+  from {
+    background-position: 100% 100%;
+  }
+  to {
+    background-position: 0% 0%;
+  }
+}
+
+/* The hero. --i is the element's place in the order. */
+.hero-in {
+  animation: settle 0.7s var(--ease-settle) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.hero-figure {
+  animation: slide-in 0.9s var(--ease-settle) 0.35s both;
+}
+
+/*
+ * Parts of a figure that wait for it to be seen. They are only hidden where
+ * scripts run, because a script is what reveals them; without one the page
+ * is simply complete.
+ */
+@media (scripting: enabled) {
+  [data-reveal]:not([data-inview]) :is(.reveal, .reveal-size) {
+    opacity: 0;
+  }
+}
+
+[data-inview] .reveal {
+  animation: settle 0.7s var(--ease-settle) both;
+  animation-delay: calc(var(--i, 0) * var(--reveal-step, 110ms));
+}
+
+/*
+ * A bar that starts as long as the original and shrinks to the result. Slow
+ * and on the compositor (a transform, not a width), so it glides. The number
+ * beside it counts with the same curve and timing: GLIDE in Reveal.tsx.
+ */
+.reveal-size {
+  transform-origin: left center;
+}
+
+[data-inview] .reveal-size {
+  animation: shrink-to-size 2.8s var(--ease-glide) 0.3s both;
+}
+
+/*
+ * The phone menu (MobileMenu.tsx): the sheet fades in, then its links
+ * settle in one after another. It is a modal <dialog>, which covers the
+ * page itself, so the backdrop only needs to match the ground.
+ */
+.site-menu {
+  animation: menu-in 0.2s ease-out both;
+}
+
+.site-menu::backdrop {
+  background: var(--background);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.site-menu .menu-item {
+  animation: settle 0.45s var(--ease-settle) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 60ms);
+}
+
+/* Nothing behind an open menu should scroll. */
+:root:has(.site-menu[open]) {
+  overflow: hidden;
+}
+
+/* Without scripts the phone's question buttons cannot open anything, so every answer is simply shown. */
+@media (scripting: none) {
+  .faq-answer {
+    visibility: visible;
+    grid-template-rows: 1fr;
+  }
+}
+
+/* Charts are drawn left to right, the way time runs. */
+.chart-wipe {
+  animation: chart-wipe 1.3s var(--ease-resize) 0.2s both;
+}
+
+/* The halo on a marker for data that is current. */
+.chart-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ping 2.6s ease-out infinite;
+}
+
+/* A highlight travelling along a flow line, in the direction of the flow (--flow-angle follows the line's orientation). */
+.flow-live .flow-line {
+  background-image: linear-gradient(var(--flow-angle, 90deg), transparent 0 38%, var(--accent-text) 50%, transparent 62% 100%);
+  background-size: 300% 300%;
+  animation: flow-sweep 3.2s linear infinite;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+/* Range inputs: a hairline track filled up to the thumb (--fill is set inline by Slider). */
+input[type="range"] {
+  appearance: none;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(to right, var(--accent-text) var(--fill, 0%), var(--border-strong) var(--fill, 0%));
+}
+
+input[type="range"]::-moz-range-track {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(to right, var(--accent-text) var(--fill, 0%), var(--border-strong) var(--fill, 0%));
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  box-shadow: 0 0 0 3px var(--surface-1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--text-primary);
+  box-shadow: 0 0 0 3px var(--surface-1);
+}
+
+@media (pointer: coarse) {
+  input[type="range"] {
+    height: 2.75rem;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -9px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

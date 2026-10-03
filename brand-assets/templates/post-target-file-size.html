@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Feature post: target file size, 1600 × 900. The bars are to scale. -->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css"><link rel="stylesheet" href="post.css">
+<style>
+  .headline { width: 640px; }
+  .sub { top: 480px; width: 600px; }
+  .bars { width: 620px; font-size: 26px; }
+  .row { display: grid; grid-template-columns: 130px 1fr; align-items: center; padding: 26px 0; border-top: 1px solid var(--line-subtle); }
+  .row:last-child { border-bottom: 1px solid var(--line-subtle); }
+  .row > span:first-child { color: var(--fg-secondary); }
+  .bar { display: flex; align-items: center; gap: 18px; }
+  .measure { display: flex; align-items: center; flex: none; }
+  .measure b { width: 2px; height: 22px; background: var(--line-strong); }
+  .measure i { flex: 1; height: 2px; background: var(--line-strong); }
+  .result .measure b, .result .measure i { background: var(--accent-text); }
+  .fits { color: var(--success); font-family: "Archivo", sans-serif; font-stretch: 100%; }
+</style></head>
+<body>
+  <div class="wordmark"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#3563e9"/><path d="M9 15V9h6M23 17v6h-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>JustResize</div>
+  <h1 class="headline">Need it under 500 KB?</h1>
+  <p class="sub">Name the limit. Get the highest quality that fits under it.</p>
+  <p class="foot">justresize.com</p>
+  <div class="figure bars">
+    <div class="row"><span>Original</span><span class="bar mono"><span class="measure" style="width: 360px"><b></b><i></i><b></b></span>5.3 MB</span></div>
+    <div class="row"><span>Limit</span><span class="bar mono"><span class="measure" style="width: 33px"><b></b><i></i><b></b></span>500 KB</span></div>
+    <div class="row result"><span>Result</span><span class="bar mono"><span class="measure" style="width: 32px"><b></b><i></i><b></b></span>487 KB <span class="fits">Fits</span></span></div>
+  </div>
+</body></html>

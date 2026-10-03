@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  Share image for a tool page, 1200 × 630: the page's own heading and its one-line description.
+  The export script renders it once per entry in lib/tools/definitions.ts and fills in the text, so a new
+  tool page gets its image by running npm run brand:export.
+-->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css">
+<style>
+  :root { --w: 1200px; --h: 630px; }
+  .wordmark { position: absolute; left: 72px; top: 64px; font-size: 34px; }
+  /* The description follows the heading, whether that takes one line or two. */
+  .copy { position: absolute; left: 72px; top: 196px; width: 620px; }
+  .headline { font-size: 84px; }
+  .sub { margin-top: 26px; width: 560px; font-size: 28px; line-height: 1.35; }
+  .foot { position: absolute; left: 72px; bottom: 60px; font-size: 22px; }
+  .figure { position: absolute; right: 84px; top: 152px; --fw: 400px; }
+</style></head>
+<body>
+  <div class="wordmark"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#3563e9"/><path d="M9 15V9h6M23 17v6h-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>JustResize</div>
+  <div class="copy">
+    <h1 class="headline" data-token="heading"></h1>
+    <p class="sub secondary" data-token="description"></p>
+  </div>
+  <p class="foot tertiary" data-token="url"></p>
+  <div class="figure">
+    <div class="rf mono">
+      <span class="rf-original">4032 × 3024</span>
+      <div class="rf-output">
+        <div class="rf-w"><b></b><i></i><span>1600</span><i></i><b></b></div>
+        <div class="rf-h"><b></b><i></i><span>1200</span><i></i><b></b></div>
+        <img src="sample.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</body></html>

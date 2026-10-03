@@ -1,0 +1,46 @@
+<!doctype html>
+<!--
+  X / Twitter header, 1500 × 500. It is the homepage hero in miniature: the two headline lines with the
+  image flow line between them, and the resize figure beside them. The second line is the token's status,
+  filled in by the export script from lib/config/site.ts (empty when the token is disabled).
+  Safe area: the profile picture covers the bottom-left corner and phones crop the top and bottom,
+  so everything that matters sits between y = 110 and y = 390 and nothing important is left of x = 110.
+  No address appears here on purpose: a header cannot be verified, the token page can.
+-->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css">
+<style>
+  :root { --w: 1500px; --h: 500px; }
+  .copy { position: absolute; left: 120px; top: 112px; width: 760px; }
+  .wordmark { font-size: 27px; margin-bottom: 18px; }
+  .wordmark .slash { color: var(--fg-disabled); font-weight: 400; margin: 0 0.1em; }
+  .wordmark .network { color: var(--fg-secondary); font-weight: 500; }
+  .headline { font-size: 64px; white-space: nowrap; min-height: 1em; }
+  .headline.second { color: var(--fg-tertiary); }
+  .flow { display: flex; align-items: center; gap: 14px; height: 44px; font-size: 19px; color: var(--fg-secondary); }
+  .flow i { flex: 1; height: 1px; background: var(--line-strong); }
+  .flow .head { width: 8px; height: 8px; margin-left: -22px; border-top: 1px solid var(--line-strong); border-right: 1px solid var(--line-strong); transform: rotate(45deg); }
+  .flow .dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--line-strong); flex: none; }
+  .flow .dot.on { background: var(--accent-text); border-color: var(--accent-text); }
+  .flow b { color: var(--fg); font-weight: 500; }
+  .meta { position: absolute; left: 120px; top: 362px; font-size: 20px; }
+  .figure { position: absolute; right: 150px; top: 112px; --fw: 368px; }
+</style></head>
+<body>
+  <div class="copy">
+    <div class="wordmark"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#3563e9"/><path d="M9 15V9h6M23 17v6h-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>JustResize <span class="slash">/</span> <span class="network">Solana</span></div>
+    <p class="headline">Private compression tool.</p>
+    <div class="flow mono"><span class="dot"></span>4032 × 3024<i></i><span class="head"></span><span class="dot on"></span><b>1600 × 1200</b></div>
+    <p class="headline second" data-token="line"></p>
+  </div>
+  <p class="meta tertiary">Local processing. No account. justresize.com</p>
+  <div class="figure">
+    <div class="rf mono">
+      <span class="rf-original">4032 × 3024</span>
+      <div class="rf-output">
+        <div class="rf-w"><b></b><i></i><span>1600</span><i></i><b></b></div>
+        <div class="rf-h"><b></b><i></i><span>1200</span><i></i><b></b></div>
+        <img src="sample.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</body></html>

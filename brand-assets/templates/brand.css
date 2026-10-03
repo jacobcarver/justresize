@@ -1,0 +1,68 @@
+/*
+ * Shared styles for the social and share-image templates. The values mirror
+ * the tokens in app/globals.css; if the product palette changes, change both.
+ * The font is the same variable face the site uses (Archivo), loaded from
+ * node_modules.
+ */
+@font-face { font-family: "Archivo"; font-weight: 100 900; font-stretch: 62% 125%; src: url("../../node_modules/@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2") format("woff2"); }
+
+:root {
+  --background: #0e0f11;
+  --surface-1: #15161a;
+  --surface-2: #1d1e23;
+  --line-subtle: rgb(255 255 255 / 0.07);
+  --line: rgb(255 255 255 / 0.12);
+  --line-strong: rgb(255 255 255 / 0.22);
+  --fg: #ececef;
+  --fg-secondary: #a6a7b1;
+  --fg-tertiary: #8a8b96;
+  --fg-disabled: #54555e;
+  --accent: #3563e9;
+  --accent-text: #8aa6ff;
+  --success: #4cc38a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--background); }
+
+body {
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  position: relative;
+  color: var(--fg);
+  font-family: "Archivo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Measurements: the same family with tabular figures, as on the site. There is no monospace face. */
+.mono { font-variant-numeric: tabular-nums; }
+.secondary { color: var(--fg-secondary); }
+.tertiary { color: var(--fg-tertiary); }
+
+/* Mark + name. Size it with font-size on the element. */
+.wordmark { display: inline-flex; align-items: center; gap: 0.42em; font-weight: 600; letter-spacing: -0.01em; line-height: 1; }
+.wordmark svg { width: 1.38em; height: 1.38em; flex: none; }
+
+/* Display type is condensed, as on the site (--display-stretch in app/globals.css). */
+.headline { font-weight: 600; font-stretch: 78%; letter-spacing: -0.02em; line-height: 1.02; text-wrap: balance; }
+
+/*
+ * The resize figure: the original as a faint frame, the output as a real
+ * picture inside it at true scale (1600 / 4032), with the output's dimension
+ * lines drawn in the space the resize removed. Set --fw to the frame width.
+ */
+.rf { position: relative; width: var(--fw); aspect-ratio: 4 / 3; border: 1px solid var(--line); font-size: calc(var(--fw) * 0.034); }
+.rf-original { position: absolute; left: 1.1em; top: 0.9em; color: var(--fg-tertiary); }
+.rf-output { position: absolute; right: -1px; bottom: -1px; width: 39.7%; aspect-ratio: 4 / 3; }
+.rf-output img { display: block; width: 100%; height: 100%; }
+.rf-w, .rf-h { position: absolute; display: flex; align-items: center; color: var(--fg-secondary); }
+.rf-w { left: 0; right: 0; bottom: 100%; margin-bottom: 0.7em; }
+.rf-h { top: 0; bottom: 0; right: 100%; margin-right: 0.7em; flex-direction: column; }
+.rf-w i, .rf-h i { background: var(--line-strong); flex: 1; }
+.rf-w i { height: 1px; } .rf-h i { width: 1px; }
+.rf-w b, .rf-h b { background: var(--line-strong); flex: none; }
+.rf-w b { width: 1px; height: 0.8em; } .rf-h b { height: 1px; width: 0.8em; }
+.rf-w span { padding: 0 0.6em; }
+.rf-h span { padding: 0.6em 0; writing-mode: vertical-rl; transform: rotate(180deg); }
