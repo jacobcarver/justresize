@@ -72,8 +72,10 @@ information page** (`/token`), which is config-driven text and links only.
   the owner supplied (`DEV_EXAMPLE_MINT`) and labelled "example coin". Never
   make the example show in a production build: it would present someone
   else's coin as this project's.
-- **Not done:** no git repo yet, not deployed to Vercel, never run on a real
-  iOS/Android device or Edge. Dark theme only. Legal pages are unreviewed drafts.
+- The code is on GitHub (`github.com/jacobcarver/justresize`, branch `main`,
+  first push 2026-10-02). Commit and push only when asked.
+- **Not done:** not deployed to Vercel, never run on a real iOS/Android device
+  or Edge. Dark theme only. Legal pages are unreviewed drafts.
   Ads have only been checked on localhost, where Google serves none.
 - **Launch values are mostly empty** in `lib/config/site.ts`: contact email,
   operator, jurisdiction, Search Console verification, and every token value
@@ -103,16 +105,15 @@ information page** (`/token`), which is config-driven text and links only.
 
 ## Likely next steps
 
-1. `git init` and first commit (only when asked).
-2. Deploy to Vercel (`vercel`; no env vars, no config needed) and check on the
+1. Deploy to Vercel (`vercel`; no env vars, no config needed) and check on the
    deployed URL that the worker and WASM load and the console has no CSP errors.
-3. Owner fills in launch values (see the checklist) and gets legal review, which
+2. Owner fills in launch values (see the checklist) and gets legal review, which
    now includes the advertising-revenue sentence on `/token`. In the AdSense
    console: add the site, turn on the consent message for the EEA/UK/Switzerland,
    and keep Auto ads off `/app` and the tool pages' download controls.
-4. Real-device checks: iOS Safari (canvas size limits, HEIC, sticky action bar,
+3. Real-device checks: iOS Safari (canvas size limits, HEIC, sticky action bar,
    safe area), Android Chrome, Edge.
-5. Unbuilt items, in rough priority: bundled HEIC decoder (`FEATURES.heicWasm`),
+4. Unbuilt items, in rough priority: bundled HEIC decoder (`FEATURES.heicWasm`),
    per-variant preview for multiple outputs, list virtualization for very large
    batches, service worker/offline, light theme. Full list at the bottom of the README.
 
